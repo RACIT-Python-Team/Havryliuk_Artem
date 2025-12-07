@@ -35,7 +35,7 @@ while True:
                 
                 cv2.drawContours(frame, [largest_contour], -1, (255, 0, 0), 2)
                 
-                cv2.circle(frame, (cx, cy), 7, (0, 0, 255), -1)
+                cv2.circle(frame, (cx, cy), 7, (100, 0, 255), -1)
                 
                 coord_text = f"X: {cx}, Y: {cy}"
                 cv2.putText(frame, coord_text, (cx - 20, cy - 20), 

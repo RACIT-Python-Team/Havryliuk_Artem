@@ -49,7 +49,7 @@ while cap.isOpened():
                 hand_landmarks, 
                 mp_hands.HAND_CONNECTIONS)
             
-    cv2.imshow('Index Finger Tracking', frame)
+    cv2.imshow('Finger Tracking', frame)
     
     if cv2.waitKey(5) & 0xFF == ord('q'):
         break

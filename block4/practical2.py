@@ -11,9 +11,7 @@ hands = mp_hands.Hands(
 
 cap = cv2.VideoCapture(0)
 
-# ID точок для кінчиків пальців
-# TIP_IDs = [4, 8, 12, 16, 20] # Великий, Вказівний, Середній, Безіменний, Мізинець
-# Для нашого проекту, нас цікавить ВКАЗІВНИЙ ПАЛЕЦЬ (ID=8)
+
 INDEX_FINGER_TIP_ID = 8
 
 while cap.isOpened():
@@ -22,7 +20,7 @@ while cap.isOpened():
         break
         
     frame = cv2.flip(frame, 1)
-    H, W, _ = frame.shape # Отримуємо розміри кадру (Висота, Ширина)
+    H, W, _ = frame.shape 
     
     image_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     results = hands.process(image_rgb)
@@ -30,24 +28,22 @@ while cap.isOpened():
     if results.multi_hand_landmarks:
         for hand_landmarks in results.multi_hand_landmarks:
             
-            # --- 1. Отримання ВКАЗІВНОГО ПАЛЬЦЯ (Landmark 8) ---
+        
             tip = hand_landmarks.landmark[INDEX_FINGER_TIP_ID]
             
-            # --- 2. Конвертація нормалізованих координат у піксельні ---
+         
             pixel_x = int(tip.x * W)
             pixel_y = int(tip.y * H)
             
-            # --- 3. Візуалізація (Обведення кінчика пальця та вивід координат) ---
-            
-            # Малюємо велике коло на кінчику пальця
+         
             cv2.circle(frame, (pixel_x, pixel_y), 15, (255, 0, 0), -1) 
             
-            # Виводимо координати на екран
+         
             text = f"X: {pixel_x}, Y: {pixel_y}"
             cv2.putText(frame, text, (pixel_x + 20, pixel_y + 10), 
                         cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
             
-            # Додатково малюємо весь скелет
+       
             mp_drawing.draw_landmarks(
                 frame, 
                 hand_landmarks, 
